@@ -1,13 +1,11 @@
 import './App.css'
 import { useContext, useEffect, useState } from 'react'
 import { InAppDialog } from './dialog/Dialog'
-import { InAppContext, ShowContext } from './provider/Provider'
+import { useContextInApp} from './provider/Provider'
 import { getUserInfo } from './utils/InAppHelper'
+import initInAppHandler from './lib/InAppInstance'
 export default function App() {
- 
-  const {inAppProperties, setInAppProperties} = useContext(InAppContext) ;
-  const {showModal, setShowModal}= useContext(ShowContext); 
-
+  const inAppHandler = initInAppHandler('http://localhost:3400', '123', 'abc-qwerer', 'EasyBuy')
   const [isLoaded, setIsLoaded] = useState(false)
   useEffect(() => {
     const fetching = async () => {
@@ -21,12 +19,11 @@ export default function App() {
     }
     fetching()
   }, [isLoaded])
+
+  
   return (
     <div>
-      <div>
-      </div>
-      <h1>hello world</h1>
-      <button onClick={() => setShowModal(true)}> test button </button>
+      {/* inject InAppDialog Component inside App Component  to display globaly*/}
       <InAppDialog />
     </div>
   )

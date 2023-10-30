@@ -20,8 +20,8 @@ const initialState = {
   userId:''
 };
 
-export const InAppContext = createContext(initialState);
-export const ShowContext = createContext(false)
+const InAppContext = createContext(initialState);
+const ShowContext = createContext(false)
 export const InAppProvider = ({
   children,
 }) => {
@@ -35,3 +35,9 @@ export const InAppProvider = ({
     </ShowContext.Provider>
   );
 };
+
+export const useContextInApp = () => {
+  const {inAppProperties, setInAppProperties} = useContext(InAppContext)
+  const {showModal, setShowModal} = useContext(ShowContext)
+  return {inAppProperties, setInAppProperties, showModal, setShowModal} 
+}

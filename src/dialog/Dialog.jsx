@@ -1,8 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
-import { InAppContext, ShowContext } from '../provider/Provider'
+import { useContextInApp } from '../provider/Provider'
 export const InAppDialog = () => {
-  const {inAppProperties, setInAppProperties} = useContext(InAppContext) ;
-  const {showModal, setShowModal}= useContext(ShowContext); 
+  const {inAppProperties, setInAppProperties, showModal, setShowModal} = useContextInApp()
   const [eventName, setEventName] = useState(null)
   const dispatcher = (eventName) => {
     dispatchEvent.apply(callEvent(eventName))
@@ -14,10 +13,16 @@ export const InAppDialog = () => {
     const inAppProps = accuireInAppPropsByEvent(eventName)
     return [eventName, setInAppProperties(inAppProps)]
   }
-
   const supressDialog = () => {
     setShowModal(!showModal)
   }
+  useEffect(()=> {
+
+    if(inAppProperties.campaign.path === window.location.pathname){
+
+    }
+
+  }, [inAppProperties.event])
   return (
     <dialog open={showModal}>
       <h1>{inAppProperties.userId}</h1>
