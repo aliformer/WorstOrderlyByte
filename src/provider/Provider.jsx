@@ -7,6 +7,7 @@ import React, {
   useReducer,
   useState,
 } from 'react';
+
 const initialState = {
   messageId: '',
   campaignId: '',
@@ -16,9 +17,11 @@ const initialState = {
   saveToInbox: false,
   custoPayload: null,
   read: false,
+  userId:''
 };
-const InAppContext = createContext();
-const ShowContext = createContext()
+
+export const InAppContext = createContext(initialState);
+export const ShowContext = createContext(false)
 export const InAppProvider = ({
   children,
 }) => {
@@ -32,9 +35,3 @@ export const InAppProvider = ({
     </ShowContext.Provider>
   );
 };
-
-export const useContextInApp = () =>{
-    const {inAppProperties, setInAppProperties} = useContext(InAppContext) ;
-    const {showModal, setShowModal} = useContext(ShowContext); 
-    return {inAppProperties, showModal, setShowModal, setInAppProperties}
-}

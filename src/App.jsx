@@ -1,10 +1,13 @@
 import './App.css'
 import { useContext, useEffect, useState } from 'react'
 import { InAppDialog } from './dialog/Dialog'
-import { useContextInApp } from './lib/provider/Provider'
+import { InAppContext, ShowContext } from './provider/Provider'
 import { getUserInfo } from './utils/InAppHelper'
 export default function App() {
-  const { setShowModal, inAppProperties} = useContextInApp()
+ 
+  const {inAppProperties, setInAppProperties} = useContext(InAppContext) ;
+  const {showModal, setShowModal}= useContext(ShowContext); 
+
   const [isLoaded, setIsLoaded] = useState(false)
   useEffect(() => {
     const fetching = async () => {
