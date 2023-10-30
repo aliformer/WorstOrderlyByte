@@ -24,7 +24,7 @@ export default function App() {
   return (
     <div>
       {/* inject InAppDialog Component inside App Component  to display globaly*/}
-      <InAppDialog />
+      <InAppDialog handler={inAppHandler}/>
     </div>
   )
 }

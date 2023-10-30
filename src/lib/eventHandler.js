@@ -1,10 +1,18 @@
-const Events = [
-  'inAppMessage-show',
-  'inAppMessage-hide',
-  'inAppMessage-received',
-  'inAppMessage-sent',
-  'inAppMessage-error',
-]
-import { InAppContext } from '../provider/Provider'
-import {useContext} from 'react'
-const {inAppPropeties, setInAppProperties} = useContext(InAppContext)
+export default class EventHandler {
+  
+  constructor(appId){
+    this.module  = null,
+    this.appId = appId
+  }
+  adapter(appId){
+    switch(appId){
+      case null : 
+          this.module = import('react-router-dom')
+        break 
+      default:
+        this.module = import('react-router-native')
+        break
+      }
+  }
+
+}

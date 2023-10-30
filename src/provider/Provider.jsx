@@ -9,13 +9,28 @@ import React, {
 } from 'react';
 
 const initialState = {
-  messageId: '',
   campaignId: '',
   trigger: '',
+  target:'',
+  template: {
+    templateId: '', 
+    body: {
+      title: "",
+      imgUrl: "",
+      button: [
+        {
+          label:"", 
+          action:{
+          },
+          url:'',
+          type:'link'
+        }
+      ]
+    }
+  },
   createdAt: new Date(),
   expiresAt: new Date(),
   saveToInbox: false,
-  custoPayload: null,
   read: false,
   userId:''
 };
