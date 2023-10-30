@@ -17,18 +17,24 @@ const initialState = {
   custoPayload: null,
   read: false,
 };
-export const InAppContext = createContext();
-
+const InAppContext = createContext();
+const ShowContext = createContext()
 export const InAppProvider = ({
   children,
 }) => {
   const [inAppProperties, setInAppProperties] = useState(initialState);
   const [showModal, setShowModal] = useState(false)
   return (
-    <InAppContext.Provider value={{ inAppProperties, setInAppProperties, showModal, setShowModal }}>
-      {children}
-    </InAppContext.Provider>
+    <ShowContext.Provider value={{ showModal, setShowModal }}>
+      <InAppContext.Provider value={{ inAppProperties, setInAppProperties }}>
+        {children}
+      </InAppContext.Provider>
+    </ShowContext.Provider>
   );
 };
 
-
+export const useContextInApp = () =>{
+    const {inAppProperties, setInAppProperties} = useContext(InAppContext) ;
+    const {showModal, setShowModal} = useContext(ShowContext); 
+    return {inAppProperties, showModal, setShowModal, setInAppProperties}
+}

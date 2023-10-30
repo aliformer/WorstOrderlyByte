@@ -1,8 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
-import { InAppContext } from '../lib/provider/Provider'
+import { useContextInApp } from '../lib/provider/Provider'
 export const InAppDialog = () => {
-  const { inAppProperties, setInAppProperties, showModal, setShowModal} =
-    useContext(InAppContext)
+  const {  inAppProperties, showModal, setInAppProperties, setShowModal} = useContextInApp()
   const [eventName, setEventName] = useState(null)
   const dispatcher = (eventName) => {
     dispatchEvent.apply(callEvent(eventName))
@@ -18,12 +17,6 @@ export const InAppDialog = () => {
   const supressDialog = () => {
     setShowModal(!showModal)
   }
-  // useEffect(() => {
-  //   const handleTrigger = () => {
-  //     dispatcher(eventName)
-  //   }
-  //   handleTrigger()
-  // }, [eventName, inAppProperties])
   return (
     <dialog open={inAppProperties.show}>
       <h1>{inAppProperties.userId}</h1>
