@@ -1,8 +1,9 @@
 import http from "./httpHandler";
 import EventHandler from "./EventHandler";
-import { useContextInApp } from "../provider/Provider";
+import { initialState, useContextInApp } from "../provider/Provider";
 import { getUserInfo } from "../utils/InAppHelper";
 import { useLocation } from "react-router-dom"; 
+
 export default class InAppMessageHandler extends EventHandler {
   token;
   endpoint;
@@ -91,7 +92,8 @@ export default class InAppMessageHandler extends EventHandler {
     }
   }
   messageHandler(message) {
-    this.context.inAppProperties = message
+
+    this.context.setInAppProperties(message)
   }
   messageFactory(templateId, messageTemplate) {
     this.messages = this.message.map((message) => {
@@ -100,10 +102,8 @@ export default class InAppMessageHandler extends EventHandler {
       }
     });
   }
-  showModal(show, message,location) {
+  showModal(show, message) {
     this.messageHandler(message)
-    
-
     if(this.context.inAppProperties){
       this.context.setShowModal(show);
     }
@@ -115,7 +115,6 @@ export default class InAppMessageHandler extends EventHandler {
         await this.mapUserMessages()
       } 
     }
-    
     catch (error){
       console.log('failed init adapter', error)
       return error
@@ -123,7 +122,6 @@ export default class InAppMessageHandler extends EventHandler {
   }
   triggerModal(location, messages){
     const matchedMessages =  messages.filter(message => message.trigger  === location)
-    console.log(matchedMessages)
     this.showModal(true, matchedMessages[0]) 
   }
 }

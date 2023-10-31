@@ -11,18 +11,44 @@ export default function App(props) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    const fetching = async () => {  
-      setTimeout(() => {
+    const fetching = () => {  
+      
           inAppHandler.triggerModal(  window.location.pathname, inAppHandler.messages)
-        }, 5000)
+        
     }
     fetching()
   }, [isLoaded])
-
-  
+  const customMessageFromClient = {
+    campaignId: '123',
+    trigger: '/',
+    target:'abc_123',
+    template: {
+      templateId: '12', 
+      body: {
+        title: "test from button",
+        imgUrl: "",
+        button: [
+          {
+            label:"", 
+            action:{
+            },
+            url:'',
+            type:'link'
+          }
+        ]
+      }
+    },
+    createdAt: new Date(),
+    expiresAt: new Date(),
+    saveToInbox: false,
+    read: false,
+    userId:'user_123'
+  }
   return (
     <div>
       {/* inject InAppDialog Component inside App Component  to display globaly*/}
+
+      <button onClick={() =>inAppHandler.showModal(true, customMessageFromClient )}> test kalau pake button </button>
       <InAppDialog handler={inAppHandler}/>
     </div>
   )

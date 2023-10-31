@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-const initialState = {
+export const initialState = {
   campaignId: '',
   trigger: '',
   target:'',
