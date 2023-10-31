@@ -4,18 +4,17 @@ import { InAppDialog } from './dialog/Dialog'
 import { useContextInApp} from './provider/Provider'
 import { getUserInfo } from './utils/InAppHelper'
 import initInAppHandler from './lib/InAppInstance'
-export default function App() {
-  const inAppHandler = initInAppHandler('http://localhost:3400', '123', 'abc-qwerer', 'EasyBuy')
+import * as router from 'react-router-dom'
+export default function App(props) {
+  
+  const inAppHandler = initInAppHandler('http://localhost:3400', '123', 'abc-qwerer', null, router)
   const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
-    const fetching = async () => {
-      const data = await getUserInfo()
-      if (data) {
-        setTimeout(() => {
-          setIsLoaded(true)
-          setShowModal(true)
+    const fetching = async () => {  
+      setTimeout(() => {
+          inAppHandler.triggerModal(  window.location.pathname, inAppHandler.messages)
         }, 5000)
-      }
     }
     fetching()
   }, [isLoaded])

@@ -3,12 +3,9 @@ import { useContextInApp } from '../provider/Provider'
 export const InAppDialog = ({handler}) => {
   const {inAppProperties, setInAppProperties, showModal, setShowModal} = useContextInApp()
   const supressDialog = () => {
-    setShowModal(!showModal)
-    handler.trigger()
+    setShowModal(false)
+    // handler.triggerModal(handler.messages)
   }
-  useEffect(()=> {
-    handler.triggerModal(handler.messages)
-  }, [inAppProperties])
   return (
     <dialog open={showModal}>
       <h1>{inAppProperties.userId}</h1>
